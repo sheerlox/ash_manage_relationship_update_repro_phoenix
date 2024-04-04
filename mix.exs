@@ -33,6 +33,7 @@ defmodule AshRepro.MixProject do
   defp deps do
     [
       {:ash, "== 2.21.6"},
+      {:ash_phoenix, "== 1.3.4"},
       {:ash_postgres, "== 1.5.23"},
       {:phoenix, "~> 1.7.11"},
       {:phoenix_ecto, "~> 4.4"},

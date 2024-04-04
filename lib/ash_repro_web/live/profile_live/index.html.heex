@@ -1,0 +1,48 @@
+<div class="mx-auto w-full h-full pt-10 mb-20">
+  <.header>
+    Profiles
+    <:actions>
+      <.link patch={~p"/new"}>
+        <.button>New Profile</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.table
+    id="profiles"
+    rows={@streams.profiles}
+    row_click={fn {_id, profile} -> JS.navigate(~p"/#{profile}") end}
+  >
+    <:col :let={{_id, profile}} label="Name">
+      <%= profile.user.firstname %> <%= profile.user.lastname %>
+    </:col>
+    <:col :let={{_id, profile}} label="Contact email">
+      <%= profile.contact_email %>
+    </:col>
+    <:action :let={{_id, profile}}>
+      <div class="sr-only">
+        <.link navigate={~p"/#{profile}"}>Show</.link>
+      </div>
+      <.link patch={~p"/#{profile}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={{id, profile}}>
+      <.link
+        phx-click={JS.push("delete", value: %{id: profile.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </:action>
+  </.table>
+
+  <.modal :if={@live_action in [:new, :edit]} id="profile-modal" show on_cancel={JS.patch(~p"/")}>
+    <.live_component
+      module={AshReproWeb.ProfileLive.FormComponent}
+      id={@profile.id || :new}
+      title={@page_title}
+      action={@live_action}
+      profile={@profile}
+      navigate={~p"/"}
+    />
+  </.modal>
+</div>

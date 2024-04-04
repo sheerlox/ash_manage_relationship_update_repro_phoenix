@@ -1,0 +1,32 @@
+<div class="mx-auto w-full h-full mb-20">
+  <.header>
+    <.back navigate={~p"/"}>Back to Profiles</.back>
+    <:actions>
+      <.link patch={~p"/#{@profile}/show/edit"} phx-click={JS.push_focus()}>
+        <.button>Edit Profile</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <.list>
+    <:item title="First name"><%= @profile.user.firstname %></:item>
+    <:item title="Last name"><%= @profile.user.lastname %></:item>
+    <:item title="Contact email"><%= @profile.contact_email %></:item>
+  </.list>
+
+  <.modal
+    :if={@live_action == :edit}
+    id="profile-modal"
+    show
+    on_cancel={JS.patch(~p"/#{@profile}")}
+  >
+    <.live_component
+      module={AshReproWeb.ProfileLive.FormComponent}
+      id={@profile.id}
+      title={@page_title}
+      action={@live_action}
+      profile={@profile}
+      patch={~p"/#{@profile}"}
+    />
+  </.modal>
+</div>

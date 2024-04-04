@@ -17,7 +17,14 @@ defmodule AshReproWeb.Router do
   scope "/", AshReproWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live_session :app do
+      live "/", ProfileLive.Index, :index
+      live "/new", ProfileLive.Index, :new
+      live "/:id/edit", ProfileLive.Index, :edit
+
+      live "/:id", ProfileLive.Show, :show
+      live "/:id/show/edit", ProfileLive.Show, :edit
+    end
   end
 
   # Other scopes may use custom stacks.

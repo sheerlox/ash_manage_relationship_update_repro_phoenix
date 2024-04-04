@@ -1,18 +1,22 @@
-# AshRepro
+# AshManageRelationshipUpdateRepro (Phoenix LiveView)
 
-To start your Phoenix server:
+Needs a running PostgreSQL DB, see [`config/config.exs`](./config/config.exs).
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+```
+mix do deps.get, deps.compile
+mix do ash_postgres.create, ash_postgres.migrate
+mix phx.server
+```
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Files
 
-## Learn more
+### LiveView
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+- [profile's `form_component.ex`](lib/ash_repro_web/live/profile_live/form_component.ex)
+
+### Resources
+
+- [`profile.ex` (main)](./lib/ash_repro/profiles/profile.ex)
+- [`user.ex` (managed)](./lib/ash_repro/accounts/user.ex)
